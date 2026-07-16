@@ -48,7 +48,7 @@ Endpoint pattern: `https://aws-external-anthropic.{region}.api.aws/v1/...`. Requ
 
 The client resolves AWS credentials via the standard precedence chain: explicit constructor args → environment (`AWS_ACCESS_KEY_ID`/`AWS_SECRET_ACCESS_KEY`/`AWS_SESSION_TOKEN`) → shared profile → assumed role / instance metadata.
 
-**Short-term API keys** are also supported for cases where SigV4 isn't practical (e.g., browser, simple scripts). Mint one with the per-language token-generator package; pass it as `api_key` on the client. Lifetime is the **lesser of** the requested duration, the underlying credential's expiry, and **12 hours**. For package names and IAM details, use web browsing to open the Claude Platform on AWS page in `shared/live-sources.md`.
+**Short-term API keys** are also supported for cases where SigV4 isn't practical (e.g., browser, simple scripts). Mint one with the per-language token-generator package; pass it as `api_key` on the client. Lifetime is the **lesser of** the requested duration, the underlying credential's expiry, and **12 hours**. For package names and IAM details, use Codex web to fetch the Claude Platform on AWS page in `shared/live-sources.md`.
 
 ---
 

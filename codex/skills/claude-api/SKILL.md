@@ -24,9 +24,9 @@ When the user asks you to add, modify, or implement a Claude feature, your code 
 
 Never mix the two — don't reach for `requests`/`fetch` in a Python or TypeScript project just because it feels lighter. Never fall back to OpenAI-compatible shims.
 
-**Never guess SDK usage.** Function names, class names, namespaces, method signatures, and import paths must come from explicit documentation — either the `{lang}/` files in this skill or the official SDK repositories or documentation links listed in `shared/live-sources.md`. If the binding you need is not explicitly documented in the skill files, use web browsing to open the relevant SDK repo from `shared/live-sources.md` before writing code. Do not infer Ruby/Java/Go/PHP/C# APIs from cURL shapes or from another language's SDK.
+**Never guess SDK usage.** Function names, class names, namespaces, method signatures, and import paths must come from explicit documentation — either the `{lang}/` files in this skill or the official SDK repositories or documentation links listed in `shared/live-sources.md`. If the binding you need is not explicitly documented in the skill files, use Codex web to fetch the relevant SDK repo from `shared/live-sources.md` before writing code. Do not infer Ruby/Java/Go/PHP/C# APIs from cURL shapes or from another language's SDK.
 
-**If web browsing or repository access fails** (network restricted, timeouts, clone blocked): do not keep retrying — write code from the patterns and namespace/package tables in the `{lang}/` file, run the compiler or interpreter on it, and iterate on the error output. For statically-typed SDKs (C#, Java, Go) a compile-fix loop against local errors reaches working code faster than blocked network research.
+**If Codex web access or repository access fails** (network restricted, timeouts, clone blocked): do not keep retrying — write code from the patterns and namespace/package tables in the `{lang}/` file, run the compiler or interpreter on it, and iterate on the error output. For statically-typed SDKs (C#, Java, Go) a compile-fix loop against local errors reaches working code faster than blocked network research.
 
 ## Defaults
 
@@ -82,8 +82,8 @@ Before reading code examples, determine which language the user is working in:
 
 3. **If language can't be inferred** (empty project, no source files, or unsupported language):
 
-   - Use request_user_input when available; otherwise ask directly with options: Python, TypeScript, Java, Go, Ruby, cURL/raw HTTP, C#, PHP
-   - If request_user_input is unavailable, default to Python examples and note: "Showing Python examples. Let me know if you need a different language."
+   - Use `request_user_input` with options: Python, TypeScript, Java, Go, Ruby, cURL/raw HTTP, C#, PHP
+   - If `request_user_input` is unavailable, default to Python examples and note: "Showing Python examples. Let me know if you need a different language."
 
 4. **If unsupported language detected** (Rust, Swift, C++, Elixir, etc.):
 
@@ -105,7 +105,7 @@ Before reading code examples, determine which language the user is working in:
 | PHP        | Yes (beta)  | Yes (beta)     | `BetaRunnableTool` + `toolRunner()`   |
 | cURL       | N/A         | Yes (beta)     | Raw HTTP, no SDK features             |
 
-> **Managed Agents code examples**: dedicated language-specific READMEs are provided for Python, TypeScript, Go, Ruby, PHP, Java, and cURL (`{lang}/managed-agents/README.md`, `curl/managed-agents.md`). Read your language's README plus the language-agnostic `shared/managed-agents-*.md` concept files. **Agents are persistent — create once, reference by ID.** Store the agent ID returned by `agents.create` and pass it to every subsequent `sessions.create`; do not call `agents.create` in the request path. The Anthropic CLI (`ant`) is one convenient way to create agents and environments from version-controlled YAML — see `shared/anthropic-cli.md`. If a binding you need isn't shown in the README, use web browsing to open the relevant entry from `shared/live-sources.md` rather than guess. C# has beta Managed Agents support via `client.Beta.Agents` and related namespaces.
+> **Managed Agents code examples**: dedicated language-specific READMEs are provided for Python, TypeScript, Go, Ruby, PHP, Java, and cURL (`{lang}/managed-agents/README.md`, `curl/managed-agents.md`). Read your language's README plus the language-agnostic `shared/managed-agents-*.md` concept files. **Agents are persistent — create once, reference by ID.** Store the agent ID returned by `agents.create` and pass it to every subsequent `sessions.create`; do not call `agents.create` in the request path. The Anthropic CLI (`ant`) is one convenient way to create agents and environments from version-controlled YAML — see `shared/anthropic-cli.md`. If a binding you need isn't shown in the README, use Codex web to fetch the relevant entry from `shared/live-sources.md` rather than guess. C# has beta Managed Agents support via `client.Beta.Agents` and related namespaces.
 
 ---
 
@@ -253,7 +253,7 @@ Full auth details (named profiles, scopes, the API-key-shadows-profile trap, ref
 
 **Critical:** Append `response.content` (not just the text) back to your messages on every turn. Compaction blocks in the response must be preserved — the API uses them to replace the compacted history on the next request. Extracting only the text string and appending that will silently lose the compaction state.
 
-See `{lang}/claude-api/README.md` (Compaction section) for code examples. Full docs via web browsing in `shared/live-sources.md`.
+See `{lang}/claude-api/README.md` (Compaction section) for code examples. Full docs via Codex web in `shared/live-sources.md`.
 
 ---
 
@@ -404,7 +404,7 @@ Availability: `shared/platform-availability.md`. For agents on Bedrock / Vertex 
 |---|---|
 | `managed-agents-onboard` | Walk the user through setting up a Managed Agent from scratch. **Read `shared/managed-agents-onboarding.md` immediately** and follow its interview script: **describe → configure the agent (propose, don't interrogate) → environment → session** (same arc as the Console quickstart, auth deferred to the session step) — defaults and inline suggestions do the work, with a silent viability gate (job vs tools/credentials/data) before any code is emitted. Do not summarize — run the interview. |
 
-**Reading guide:** Start with `shared/managed-agents-overview.md`, then the topical `shared/managed-agents-*.md` files (core, environments, tools, events, outcomes, multiagent, webhooks, memory, scheduled-deployments, client-patterns, onboarding, api-reference). For Python, TypeScript, Go, Ruby, PHP, and Java, read `{lang}/managed-agents/README.md` for code examples. For cURL, read `curl/managed-agents.md`. **Agents are persistent — create once, reference by ID.** Store the agent ID returned by `agents.create` and pass it to every subsequent `sessions.create`; do not call `agents.create` in the request path. The Anthropic CLI (`ant`) is one convenient way to create agents and environments from version-controlled YAML — see `shared/anthropic-cli.md`. If a binding you need isn't shown in the language README, use web browsing to open the relevant entry from `shared/live-sources.md` rather than guess. C# has beta Managed Agents support via `client.Beta.Agents` and related namespaces.
+**Reading guide:** Start with `shared/managed-agents-overview.md`, then the topical `shared/managed-agents-*.md` files (core, environments, tools, events, outcomes, multiagent, webhooks, memory, scheduled-deployments, client-patterns, onboarding, api-reference). For Python, TypeScript, Go, Ruby, PHP, and Java, read `{lang}/managed-agents/README.md` for code examples. For cURL, read `curl/managed-agents.md`. **Agents are persistent — create once, reference by ID.** Store the agent ID returned by `agents.create` and pass it to every subsequent `sessions.create`; do not call `agents.create` in the request path. The Anthropic CLI (`ant`) is one convenient way to create agents and environments from version-controlled YAML — see `shared/anthropic-cli.md`. If a binding you need isn't shown in the language README, use Codex web to fetch the relevant entry from `shared/live-sources.md` rather than guess. C# has beta Managed Agents support via `client.Beta.Agents` and related namespaces.
 
 **When the user wants to set up a Managed Agent from scratch** (e.g. "how do I get started", "walk me through creating one", "set up a new agent"): read `shared/managed-agents-onboarding.md` and run its interview — same flow as the `managed-agents-onboard` subcommand.
 
@@ -466,7 +466,7 @@ Server-side tools run on Anthropic's infrastructure — no client-side execution
 
 After detecting the language, read the relevant files based on what the user needs.
 
-**All SDK languages use the same multi-file layout** — directory `{lang}/claude-api/` containing `README.md` (install, client init, basic request, thinking, caching, stop details, misc), `tool-use.md` (tool definitions, agentic loop, Anthropic-defined tools, structured outputs), `streaming.md`, `batches.md`, `files-api.md`. Not every language has every file (e.g., Ruby has no `batches.md`); if a file is absent, that feature's example is not yet documented for that language — fall back to the cURL shape or use web browsing to open the SDK repo from `shared/live-sources.md`. **cURL** → `curl/examples.md`.
+**All SDK languages use the same multi-file layout** — directory `{lang}/claude-api/` containing `README.md` (install, client init, basic request, thinking, caching, stop details, misc), `tool-use.md` (tool definitions, agentic loop, Anthropic-defined tools, structured outputs), `streaming.md`, `batches.md`, `files-api.md`. Not every language has every file (e.g., Ruby has no `batches.md`); if a file is absent, that feature's example is not yet documented for that language — fall back to the cURL shape or Use Codex web to fetch the SDK repo from `shared/live-sources.md`. **cURL** → `curl/examples.md`.
 
 The Quick Task Reference below uses the `{lang}/claude-api/FILE.md` path notation for all languages.
 
@@ -502,7 +502,7 @@ The Quick Task Reference below uses the `{lang}/claude-api/FILE.md` path notatio
 → Read `{lang}/claude-api/README.md` + `{lang}/claude-api/files-api.md`
 
 **Managed Agents (server-managed stateful agents with workspace):**
-→ Read `shared/managed-agents-overview.md` + the rest of the `shared/managed-agents-*.md` files. For Python, TypeScript, Go, Ruby, PHP, and Java, read `{lang}/managed-agents/README.md` for code examples. For cURL, read `curl/managed-agents.md`. **Agents are persistent — create once, reference by ID.** Store the agent ID returned by `agents.create` and pass it to every subsequent `sessions.create`; do not call `agents.create` in the request path. The Anthropic CLI (`ant`) is one convenient way to create agents and environments from version-controlled YAML — see `shared/anthropic-cli.md`. If a binding you need isn't shown in the language README, use web browsing to open the relevant entry from `shared/live-sources.md` rather than guess. C# has beta Managed Agents support — see `csharp/claude-api/README.md` for details, or `curl/managed-agents.md` for raw HTTP reference.
+→ Read `shared/managed-agents-overview.md` + the rest of the `shared/managed-agents-*.md` files. For Python, TypeScript, Go, Ruby, PHP, and Java, read `{lang}/managed-agents/README.md` for code examples. For cURL, read `curl/managed-agents.md`. **Agents are persistent — create once, reference by ID.** Store the agent ID returned by `agents.create` and pass it to every subsequent `sessions.create`; do not call `agents.create` in the request path. The Anthropic CLI (`ant`) is one convenient way to create agents and environments from version-controlled YAML — see `shared/anthropic-cli.md`. If a binding you need isn't shown in the language README, use Codex web to fetch the relevant entry from `shared/live-sources.md` rather than guess. C# has beta Managed Agents support — see `csharp/claude-api/README.md` for details, or `curl/managed-agents.md` for raw HTTP reference.
 
 ### Claude API (Full File Reference)
 
@@ -518,7 +518,7 @@ Read the **language-specific Claude API source** — `{language}/claude-api/` fo
 8. **`shared/prompt-caching.md`** — Read when adding or optimizing prompt caching. Covers prefix-stability design, breakpoint placement, and anti-patterns that silently invalidate cache.
 9. **`shared/error-codes.md`** — Read when debugging HTTP errors or implementing error handling. Includes the per-SDK typed exception class table and the Go `errors.As` pattern.
 10. **`shared/model-migration.md`** — Read when upgrading to newer models, replacing retired models, or translating `budget_tokens` / prefill patterns to the current API.
-11. **`shared/live-sources.md`** — URLs to open with web browsing for the latest official documentation.
+11. **`shared/live-sources.md`** — Codex web URLs for fetching the latest official documentation.
 
 Not every language has every file (e.g., Ruby has no `batches.md`); if a file is absent, that feature's example is not yet documented for that language.
 
@@ -526,9 +526,9 @@ Not every language has every file (e.g., Ruby has no `batches.md`); if a file is
 
 ---
 
-## When to Use Web Browsing
+## When to Use Codex web
 
-Use the available web browsing tool to get the latest documentation when:
+Use Codex web to get the latest documentation when:
 
 - User asks for "latest" or "current" information
 - Cached data seems incorrect
@@ -552,7 +552,7 @@ Live documentation URLs are in `shared/live-sources.md`.
 - **Structured outputs (all models):** Use `output_config: {format: {...}}` instead of the deprecated `output_format` parameter on `messages.create()`. This is a general API change, not 4.6-specific.
 - **Don't reimplement SDK functionality:** The SDK provides high-level helpers — use them instead of building from scratch. Specifically: use `stream.finalMessage()` instead of wrapping `.on()` events in `new Promise()`; use typed exception classes (`Anthropic.RateLimitError`, etc.) instead of string-matching error messages; use SDK types (`Anthropic.MessageParam`, `Anthropic.Tool`, `Anthropic.Message`, etc.) instead of redefining equivalent interfaces.
 - **Error handling — catch a chain, not one broad class.** A single `except APIStatusError` / `catch (AnthropicServiceException)` / `rescue APIError` loses the distinction between retryable (429, ≥500, network) and non-retryable (400/404) failures. Write a most-specific-first chain — e.g. `NotFoundError` → `RateLimitError` → `APIStatusError` → `APIConnectionError` (or the Go equivalent: `errors.As` into `*anthropic.Error` then `switch apierr.StatusCode { case 404: …; case 429: …; default: … }`). Per-language class names and namespaces are in `shared/error-codes.md`.
-- **Don't research SDK types — write first.** If a type name isn't shown in the documentation included in this skill, write the code file from the namespace/package tables in the language-specific doc and let the compiler's error point you to the right name. Do not spend turns on web browsing, SDK-repo clones, or compiling-and-running a separate reflection program to discover type names before writing — produce the source file first, then fix what the compiler reports. A quick `strings` / `jar tf` / `javap` against the installed SDK is acceptable for locating names (it returns in seconds), but don't escalate beyond that. A file with a wrong type name is recoverable; a session spent on discovery with no file written is not.
+- **Don't research SDK types — write first.** If a type name isn't shown in the documentation included in this skill, write the code file from the namespace/package tables in the language-specific doc and let the compiler's error point you to the right name. Do not spend turns on Codex web access, SDK-repo clones, or compiling-and-running a separate reflection program to discover type names before writing — produce the source file first, then fix what the compiler reports. A quick `strings` / `jar tf` / `javap` against the installed SDK is acceptable for locating names (it returns in seconds), but don't escalate beyond that. A file with a wrong type name is recoverable; a session spent on discovery with no file written is not.
 - **Bash and text editor tools are Anthropic-defined, schema-less.** Declare `{"type": "bash_20250124", "name": "bash"}` / `{"type": "text_editor_20250728", "name": "str_replace_based_edit_tool"}` — no `input_schema`. A custom tool with your own schema named `"bash"` is a different tool. Handler paths and security checks are in `shared/tool-use-concepts.md` § Client-Side Tools.
 - **Advisor tool model pairing.** The advisor tool's `model` must be at least as capable as the request's top-level `model` — e.g. executor `claude-sonnet-5` → advisor `claude-opus-4-8` or `claude-opus-4-7`. An invalid pair returns 400. Pairing table in `shared/tool-use-concepts.md` § Advisor. Availability: `shared/platform-availability.md`.
 - **Agent Skills ≠ Managed Agents.** To have Claude generate a `.pptx`/`.xlsx`/etc. via Agent Skills, call `client.beta.messages.create` with `container={"skills": [...]}`, the `code_execution_20260521` tool, and both `code-execution-2025-08-25` + `skills-2025-10-02` betas. Do not use `client.beta.agents` / `sessions` / `environments` here — those are the Managed Agents surface, not Agent Skills.

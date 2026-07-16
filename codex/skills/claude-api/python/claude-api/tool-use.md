@@ -452,7 +452,7 @@ for message in runner:
     print(message)
 ```
 
-For full implementation examples, use the available web browsing tool:
+For full implementation examples, use Codex web:
 
 - `https://github.com/anthropics/anthropic-sdk-python/blob/main/examples/memory/basic.py`
 

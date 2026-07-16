@@ -196,7 +196,7 @@ With standard tool use, each tool call is a round trip: Claude calls, the result
 
 Programmatic tool calling lets Claude compose those calls into a script. The script runs in the code execution container; when it invokes a tool, the container pauses, the call executes, and the result returns to the running code (not to Claude's context). The script processes it with normal control flow. Only the final output returns to Claude. Use it when chaining many tool calls or when intermediate results are large and should be filtered before reaching the context window.
 
-For full documentation, use the available web browsing tool:
+For full documentation, use Codex web:
 
 - URL: `https://platform.claude.com/docs/en/agents-and-tools/tool-use/programmatic-tool-calling`
 
@@ -206,7 +206,7 @@ For full documentation, use the available web browsing tool:
 
 The tool search tool lets Claude dynamically discover tools from large libraries without loading all definitions into the context window. Use it when you have many tools but only a few are relevant to any given request. Discovered tool schemas are appended to the request, not swapped in — this preserves the prompt cache (see `agent-design.md` §Caching for Agents).
 
-For full documentation, use the available web browsing tool:
+For full documentation, use Codex web:
 
 - URL: `https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-search-tool`
 
@@ -269,7 +269,7 @@ Optional toolset fields: `default_config` (defaults for all tools, e.g. `{"enabl
 
 You can provide sample tool calls directly in your tool definitions to demonstrate usage patterns and reduce parameter errors. This helps Claude understand how to correctly format tool inputs, especially for tools with complex schemas.
 
-For full documentation, use the available web browsing tool:
+For full documentation, use Codex web:
 
 - URL: `https://platform.claude.com/docs/en/agents-and-tools/tool-use/implement-tool-use`
 
@@ -279,7 +279,7 @@ For full documentation, use the available web browsing tool:
 
 Computer use lets Claude interact with a desktop environment (screenshots, mouse, keyboard). It is a client-side tool — your application provides the environment and executes the actions Claude requests; Anthropic processes the screenshots and action requests in real time but does not host the environment or retain the data.
 
-For full documentation, use the available web browsing tool:
+For full documentation, use Codex web:
 
 - URL: `https://platform.claude.com/docs/en/agents-and-tools/computer-use/overview`
 
@@ -291,7 +291,7 @@ Context editing clears stale tool results and thinking blocks from the transcrip
 
 **Beta.** Use `client.beta.messages.*` with beta `context-management-2025-06-27`. Configure via `context_management.edits` with a strategy type of `clear_tool_uses_20250919` (clear old tool results; optional `clear_tool_inputs: true` also clears the tool_use params) or `clear_thinking_20251015` (clear thinking blocks). These are **not** the compaction types — `compact_20260112` with beta `compact-2026-01-12` is the separate compaction feature.
 
-For full documentation, use the available web browsing tool:
+For full documentation, use Codex web:
 
 - URL: `https://platform.claude.com/docs/en/build-with-claude/context-editing`
 
@@ -335,7 +335,7 @@ The memory tool enables Claude to store and retrieve information across conversa
 
 > **Security:** Never store API keys, passwords, tokens, or other secrets in memory files. Be cautious with personally identifiable information (PII) — check data privacy regulations (GDPR, CCPA) before persisting user data. The reference implementations have no built-in access control; in multi-user systems, implement per-user memory directories and authentication in your tool handlers.
 
-For full implementation examples, use the available web browsing tool:
+For full implementation examples, use Codex web:
 
 - Docs: `https://platform.claude.com/docs/en/agents-and-tools/tool-use/memory-tool.md`
 
@@ -439,6 +439,6 @@ The Python and TypeScript SDKs automatically handle unsupported constraints by r
 5. **Limit tool count**: Too many tools can confuse the model — keep the set focused
 6. **Test tool interactions**: Verify Claude uses tools correctly in various scenarios
 
-For detailed tool use documentation, use the available web browsing tool:
+For detailed tool use documentation, use Codex web:
 
 - URL: `https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview`

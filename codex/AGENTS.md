@@ -166,7 +166,6 @@ Codex 用户 skills 位于 `/Users/taoyawei/.codex/skills/`。
 | `test-driven-development` | 明确要求 TDD、先写测试、测试驱动开发时 |
 | `tdd-amendment-bug-fix` | 白盒 bug 修复、需要黄色测试复现当前错误和 DB 状态断言时，与 TDD skill 同用 |
 | `layered-diagnosis` | 需要分层定位复杂问题、从现象拆到数据/接口/实现/环境层时 |
-| `find-skills` | 用户询问有哪些 skill、需要发现可用 skill 或选择合适 skill 时 |
 
 ## Codex 能力追索规则
 

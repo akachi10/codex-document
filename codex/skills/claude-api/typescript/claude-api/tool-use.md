@@ -447,7 +447,7 @@ for await (const message of runner) {
 }
 ```
 
-For full implementation examples, use the available web browsing tool:
+For full implementation examples, use Codex web:
 
 - `https://github.com/anthropics/anthropic-sdk-typescript/blob/main/examples/tools-helpers-memory.ts`
 

@@ -17,7 +17,7 @@ from anthropic import Anthropic
 client = Anthropic()
 resp = client.messages.count_tokens(
     model="claude-opus-4-8",
-    messages=[{"role": "user", "content": open("CLAUDE.md").read()}],
+    messages=[{"role": "user", "content": open("AGENTS.md").read()}],
 )
 print(resp.input_tokens)
 ```
@@ -29,7 +29,7 @@ TypeScript: `await client.messages.countTokens({model, messages})` →
 
 ```sh
 ant messages count-tokens --model claude-opus-4-8 \
-  --message '{role: user, content: "@./CLAUDE.md"}' \
+  --message '{role: user, content: "@./AGENTS.md"}' \
   --transform input_tokens -r
 ```
 
@@ -48,8 +48,8 @@ def count(text: str) -> int:
         messages=[{"role": "user", "content": text}],
     ).input_tokens
 
-before = subprocess.check_output(["git", "show", "HEAD:CLAUDE.md"], text=True)
-after = open("CLAUDE.md").read()
+before = subprocess.check_output(["git", "show", "HEAD:AGENTS.md"], text=True)
+after = open("AGENTS.md").read()
 print(count(after) - count(before))
 ```
 

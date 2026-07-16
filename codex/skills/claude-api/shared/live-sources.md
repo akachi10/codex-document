@@ -1,8 +1,8 @@
 # Live Documentation Sources
 
-This file contains URLs to open with web browsing for current information from platform.claude.com and Agent SDK repositories. Use these when users need the latest data that may have changed since the cached content was last updated.
+This file contains Codex web URLs for fetching current information from platform.claude.com and Agent SDK repositories. Use these when users need the latest data that may have changed since the cached content was last updated.
 
-## When to Use Web Browsing
+## When to Use Codex web
 
 - User explicitly asks for "latest" or "current" information
 - Cached data seems incorrect
@@ -118,7 +118,7 @@ The `ant` CLI provides terminal access to the Claude API. Every API resource is 
 
 ## Claude API SDK Repositories
 
-Use web browsing to open these when a binding (class, method, namespace, field) isn't covered in the cached `{lang}/` skill files or in the managed-agents docs above. The SDKs include beta managed-agents support for `/v1/agents`, `/v1/sessions`, `/v1/environments`, and related resources — search the repo for `BetaManagedAgents`, `beta.agents`, `beta.sessions`, or the equivalent namespace for that language.
+Use Codex web to fetch these when a binding (class, method, namespace, field) isn't covered in the cached `{lang}/` skill files or in the managed-agents docs above. The SDKs include beta managed-agents support for `/v1/agents`, `/v1/sessions`, `/v1/environments`, and related resources — search the repo for `BetaManagedAgents`, `beta.agents`, `beta.sessions`, or the equivalent namespace for that language.
 
 | SDK        | URL                                                      | Extraction Prompt                                                                                                       |
 | ---------- | -------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
@@ -136,7 +136,7 @@ Each SDK repo also ships runnable programs under `examples/` — including the r
 
 ## Fallback Strategy
 
-If web browsing fails (network issues, URL changed):
+If Codex web access fails (network issues, URL changed):
 
 1. Use cached content from the language-specific files (note the cache date)
 2. Inform user the data may be outdated

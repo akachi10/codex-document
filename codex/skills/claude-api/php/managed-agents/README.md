@@ -1,6 +1,6 @@
 # Managed Agents — PHP
 
-> **Bindings not shown here:** This README covers the most common managed-agents flows for PHP. If you need a class, method, namespace, field, or behavior that isn't shown, use web browsing to open the PHP SDK repo **or the relevant docs page** from `shared/live-sources.md` rather than guess. Do not extrapolate from cURL shapes or another language's SDK.
+> **Bindings not shown here:** This README covers the most common managed-agents flows for PHP. If you need a class, method, namespace, field, or behavior that isn't shown, use Codex web to fetch the PHP SDK repo **or the relevant docs page** from `shared/live-sources.md` rather than guess. Do not extrapolate from cURL shapes or another language's SDK.
 
 > **Agents are persistent — create once, reference by ID.** Store the agent ID returned by `$client->beta->agents->create` and pass it to every subsequent `->sessions->create`; do not call `agents->create` in the request path. The Anthropic CLI is one convenient way to create agents and environments from version-controlled YAML — its URL is in `shared/live-sources.md`. The examples below show in-code creation for completeness; in production the create call belongs in setup, not in the request path.
 
@@ -204,7 +204,7 @@ foreach ($client->beta->sessions->events->list($session->id)->pagingEachItem() a
 
 ## Upload a File
 
-> ℹ️ **PHP file upload:** The PHP SDK's beta managed-agents file upload binding is not shown in the apps source examples; the canonical PHP example uses raw cURL against `POST /v1/files`. If your codebase prefers the SDK, use web browsing to open the `anthropic-ai/sdk` PHP repository for the latest binding before writing code.
+> ℹ️ **PHP file upload:** The PHP SDK's beta managed-agents file upload binding is not shown in the apps source examples; the canonical PHP example uses raw cURL against `POST /v1/files`. If your codebase prefers the SDK, use Codex web to fetch the `anthropic-ai/sdk` PHP repository for the latest binding before writing code.
 
 ```php
 use Anthropic\Beta\Sessions\BetaManagedAgentsFileResourceParams;

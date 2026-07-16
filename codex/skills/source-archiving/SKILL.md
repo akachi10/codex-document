@@ -1,6 +1,6 @@
 ---
 name: source-archiving
-description: 发文前外链存档 skill。三层备档（Wayback / Archive.today / 本地截图）。何时使用：文章定稿、submit 之前最后一步；引用了任何外站链接的文章发布前。
+description: 发文前外链存档 skill。三层备档（Wayback / Archive.today / 本地截图；Archive.today 层内可经 Memento 聚合器查既有快照）。何时使用：文章定稿、submit 之前最后一步；引用了任何外站链接的文章发布前。
 ---
 
 # source-archiving — 外链存档
@@ -63,21 +63,17 @@ curl -L "https://archive.ph/?run=1&url=<原 URL>"  # 触发新存档
 
 **返回**：`https://archive.ph/<5字符 ID>` 或 `https://archive.today/<原 URL>`
 
-### 第 3 层：Memento Time Travel（兜底中的兜底）
-
-**特点**：聚合多个存档源（Wayback + archive.is + UK Web Archive 等），找到任意一份历史快照。
-
-**用法**：
+**子步骤——经 Memento 聚合器查既有快照**：Archive.today 直接存档失败时，先用 Memento Time Travel 聚合器查是否已有任何历史快照可直接引用（Memento 本身不产生新存档，只聚合 Wayback + archive.is + UK Web Archive 等既有源）。
 
 ```
 https://timetravel.mementoweb.org/api/json/<YYYYMMDDHHMMSS>/<原 URL>
 ```
 
-返回 JSON，列出所有可用存档源。
+返回 JSON，列出所有可用存档源。查到可用快照就引用它；查不到再走第 3 层。
 
-### 第 4 层：本地截图（最后手段）
+### 第 3 层：本地截图（最后手段）
 
-如果三层全失败：
+如果前两层（含 Memento 查既有快照）全失败：
 
 1. 浏览器打开原 URL
 2. F12 全屏截图：DevTools 三点菜单 → More tools → Capture full size screenshot（Chrome）
@@ -92,7 +88,7 @@ https://timetravel.mementoweb.org/api/json/<YYYYMMDDHHMMSS>/<原 URL>
 |---|---|
 | Wayback 返回 5xx | 等 1 分钟重试；连续 3 次失败转 Archive.today |
 | Wayback 返回 4xx | 直接转 Archive.today |
-| Archive.today 拒抓 | 转 Memento 找历史快照；如有历史快照引用历史的；如无走本地截图 |
+| Archive.today 拒抓 | 先经 Memento 聚合器查既有快照，有则引用历史快照；如无走本地截图 |
 | 全部失败 | 本地截图 + 在文末「来源存档」标注「该来源无法第三方存档，本地存档由编辑部保存」 |
 
 ## 文章末尾「来源存档」清单格式

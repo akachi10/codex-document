@@ -26,8 +26,8 @@ All resources are under the `beta` namespace. Python and TypeScript share identi
 | Session Events | `sessions.events.list` / `send` / `stream` | `Sessions.Events.List` / `Send` / `StreamEvents` |
 | Session Threads | `sessions.threads.list` / `retrieve` / `archive`; `sessions.threads.events.list` / `stream` | `Sessions.Threads.List` / `Get` / `Archive`; `Sessions.Threads.Events.List` / `StreamEvents` |
 | Session Resources | `sessions.resources.add` / `retrieve` / `update` / `list` / `delete` | `Sessions.Resources.Add` / `Get` / `Update` / `List` / `Delete` |
-| Deployments | `deployments.create` / `pause` / `unpause` / `archive` / `run` | Not yet documented — use web browsing to open the SDK repo (`shared/live-sources.md`) |
-| Deployment Runs | `deployment_runs.list` / `retrieve` (TS: `deploymentRuns.*`) | Not yet documented — use web browsing to open the SDK repo (`shared/live-sources.md`) |
+| Deployments | `deployments.create` / `pause` / `unpause` / `archive` / `run` | Not yet documented — use Codex web to fetch the SDK repo (`shared/live-sources.md`) |
+| Deployment Runs | `deployment_runs.list` / `retrieve` (TS: `deploymentRuns.*`) | Not yet documented — use Codex web to fetch the SDK repo (`shared/live-sources.md`) |
 | Vaults | `vaults.create` / `retrieve` / `update` / `list` / `delete` / `archive` | `Vaults.New` / `Get` / `Update` / `List` / `Delete` / `Archive` |
 | Credentials | `vaults.credentials.create` / `retrieve` / `update` / `list` / `delete` / `archive` / `mcp_oauth_validate` | `Vaults.Credentials.New` / `Get` / `Update` / `List` / `Delete` / `Archive` / `McpOauthValidate` |
 | Memory Stores | `memory_stores.create` / `retrieve` / `update` / `list` / `delete` / `archive` | `MemoryStores.New` / `Get` / `Update` / `List` / `Delete` / `Archive` |

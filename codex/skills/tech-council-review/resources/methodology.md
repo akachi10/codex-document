@@ -3,6 +3,8 @@
 > **来源**：本文件逐字采纳业界开源方法论 `lyndonkl/claude@deliberation-debate-red-teaming` 的 advanced methodology（attack-tree / pre-mortem / wargaming / tabletop / 引导技巧 / Toulmin 论证框架 / 共识构建 / 二阶效应·反演·假设浮现 / 8 大陷阱），作为本 skill 的「多轮辩论」深度档。SKILL.md 的 5 步单轮流程是基础档，方案利害大、不可逆、信心低时升级到本文件的多轮技法。
 >
 > **本地化适配（读本文件时按此映射）**：本文件原文里的通用对抗角色（Competitor/Malicious Actor/Regulator/Finance/Legal/Journalist 等商业角色）——本技术委员会**一律不设**。把原文出现的角色一律映射到本委员会的 6 个技术席：**PM / SM / 架构师 / devops / 悲观者(=原文 Pessimist) / 愚者(本委员会原创，原文无对应——不读文档的塔罗 0 号局外发问者)**。原文里 wargaming 的"Adversary team"在本委员会由 悲观者 扮演，"Control team"由主持人(session)扮演。其余技法（pre-mortem 倒推失败、attack-tree、tabletop、Toulmin 验真伪、二阶效应/反演/假设浮现）原样适用，无需改动。
+>
+> **平权覆盖（强制）**：原方法论中所有 stakeholder-weighted / HiPPO 相关机制，在本委员会一律以「全员平权、无发言权重」覆盖——不按干系人权重、不按头衔投票。相关段落（如 Consensus Building 的 "Negotiate showstoppers"、Common Pitfalls 的 "HiPPO effect" 附近）仅作方法论背景保留，实际执行以本条为准。
 
 ## Workflow
 
@@ -281,7 +283,7 @@ Structured walkthrough where participants discuss how they'd respond to scenario
 **Process:**
 1. **Acknowledge perspectives (15 min):** Each states top concern, facilitator captures
 2. **Identify shared goals (10 min):** What do all agree on?
-3. **Negotiate showstoppers (30 min):** For risks ≥15, discuss: Is this truly showstopper? Minimum mitigation? Vote if needed (stakeholder-weighted scoring)
+3. **Negotiate showstoppers (30 min):** For risks ≥15, discuss: Is this truly showstopper? Minimum mitigation? 争议收敛按 **S×L 风险分排序、全员平权**（不按干系人权重、不按头衔）；无法消除的异议记录在纪要中，由用户/明确决策者最终裁决
 4. **Accept disagreements (10 min):** Decision-maker breaks tie on non-showstoppers. Document dissent.
 
 ### Delphi Method (Asynchronous)

@@ -243,4 +243,4 @@ ant beta:agents retrieve --agent-id bogus --transform-error error.message --form
 
 Shell completion: `ant @completion {zsh|bash|fish|powershell}`.
 
-For the full, always-current reference (including per-endpoint flags), use web browsing to open the **Anthropic CLI** URL in `shared/live-sources.md`.
+For the full, always-current reference (including per-endpoint flags), use Codex web to fetch the **Anthropic CLI** URL in `shared/live-sources.md`.

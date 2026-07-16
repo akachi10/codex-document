@@ -11,23 +11,32 @@ This skill **adds to** `~/.codex/skills/test-driven-development/SKILL.md`. The b
 
 Whenever the base TDD skill is referenced, this amendment is referenced too.
 
-## Amendment 1 — Yellow test (bug-fix bisection)
+## Amendment 1 — Yellow test (bug reproduction probe)
 
-In white-box bug fixes you know the exact wrong behavior. Write **two** test sets:
+In white-box bug fixes you know the exact wrong behavior. Write **two** tests. **Both are written once and never edited afterwards** — phases only observe them.
 
-| Set | Purpose | RED phase | After implementation |
-|-----|---------|-----------|----------------------|
-| **Yellow** | Reproduces current BUG behavior | red (mocks not ready) | turns GREEN in stage B → proves BUG exists → **must be reversed or deleted in stage D** (assertion now says "BUG behavior no longer happens") |
-| **Green** | Asserts fixed behavior | red | turns GREEN only after implementation in stage C |
+| Test | Assertion (fixed at birth, never rewritten) | Before fix | After fix |
+|------|---------------------------------------------|-----------|-----------|
+| **Yellow** | The BUG behavior does **not** happen（BUG 再现探测：结果 `true`=继续复现，`false`=不再复现） | **FAILS**（true/复现中）— failure output shows the actual buggy value | **PASSES**（false/不再复现 = BUG 修复） |
+| **Red** | The **correct** behavior happens（调用功能，断言正确行为） | **FAILS**（功能未实现/未修复） | **PASSES**（转绿 = 完成） |
 
 **Four phases** (extends base RED-GREEN-REFACTOR):
 
-1. **A — RED**: Write both yellow + green tests. All red (compile / mock missing).
-2. **B — YELLOW+GREEN**: Wire mocks. Yellow tests pass (confirms BUG exists in current code). Green tests still red (waiting for fix). **Report yellow test output to user as proof.**
-3. **C — Implement**: Fix production code.
-4. **D — ALL GREEN**: Green tests pass. Yellow tests now reversed (assert BUG no longer happens) and pass.
+1. **A — Write both tests**: yellow asserts the BUG behavior is absent; red asserts the correct behavior. Wire minimal stubs **in this phase** — the baseline failures must be **assertion failures**, never compile errors or missing mocks (base TDD rule).
+2. **B — Baseline, double red**: Run both. Yellow fails, its output showing the buggy behavior actually occurring — **quote this output verbatim to the user as reproduction proof**. Red fails on the missing correct behavior.
+3. **C — Fix production code**: Tests are frozen — not a single character of either test may change.
+4. **D — Double green**: Red passes (correct behavior present) **and** yellow passes (BUG behavior gone). **Both tests stay in the suite permanently** — yellow guards against the wrong behavior returning, red guards the correct behavior. They are complementary, not redundant: a wrong-direction "fix" turns one green but not the other.
 
-Yellow tests are **evidence**, not permanent regressions. After D they describe what the code no longer does.
+If in D only red turns green（行为出现了但错误行为也还在）or only yellow turns green（错误行为消失但没修成正确行为）→ keep fixing production code; never touch the tests.
+
+### Second trigger — post-implementation adversarial probe（完工后主动探雷）
+
+Yellow tests are not only for known bugs. After implementation is complete, hypothesize what bugs are likely（边界、空值、并发、状态机漏态、字符串包含坑……），**deliberately construct the exact conditions that would hit the hypothesized bug**, and write a yellow test asserting that bug behavior does not happen.
+
+- Probe **passes**（false = 不复现）: hypothesis cleared — keep the test in the suite as a permanent guard against that failure mode.
+- Probe **FAILS**（true = 复现）: a real bug just got caught — enter the four-phase flow above, with this yellow test already serving as the phase-B reproduction evidence（补写 red test 断言正确行为 → fix → double green）.
+
+Writing probes after code does not violate base TDD's iron law — the production code being probed was itself developed test-first; probes are **additional adversarial coverage**, never a substitute for test-first development.
 
 ## Amendment 2 — DB-state assertion for integration tests
 

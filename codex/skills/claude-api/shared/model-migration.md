@@ -4,7 +4,7 @@
 
 How to move existing code to newer Claude models. Covers breaking changes, deprecated parameters, and drop-in replacements for retired models.
 
-For the latest, authoritative version (with code samples in every supported language), use web browsing to open the **Migration Guide** URL from `shared/live-sources.md`. Use this file for the consolidated, skill-resident reference; fall back to the live docs whenever a model launch or breaking change may have shifted the picture.
+For the latest, authoritative version (with code samples in every supported language), use Codex web to fetch the **Migration Guide** URL from `shared/live-sources.md`. Use this file for the consolidated, skill-resident reference; fall back to the live docs whenever a model launch or breaking change may have shifted the picture.
 
 **This file is large.** Use the section names below to jump (or `Grep` this file for the heading text). Read Step 0 and Step 1 first — they apply to every migration. Then read only the per-target section for the model you are migrating to.
 
@@ -90,7 +90,7 @@ When migrating tests specifically: breaking parameters (`temperature`, `top_p`, 
 
 Code examples in this guide are Python. **The same fields exist in every official Anthropic SDK** — Stainless generates all 7 from the same OpenAPI spec, so JSON field names map 1:1 with only case-convention differences. Use the rows below to translate the Python examples to the SDK you are migrating.
 
-> **Verify type and method names against the SDK source before writing them into customer code.** Use web browsing to open the relevant repository from the SDK source-code table in `shared/live-sources.md` (one row per SDK) and confirm the exact symbol — particularly for typed SDKs (Go, Java, C#) where union/builder names can differ from the JSON shape. Do not guess type names that aren't in the table below or in `<lang>/claude-api/README.md`.
+> **Verify type and method names against the SDK source before writing them into customer code.** Use Codex web to fetch the relevant repository from the SDK source-code table in `shared/live-sources.md` (one row per SDK) and confirm the exact symbol — particularly for typed SDKs (Go, Java, C#) where union/builder names can differ from the JSON shape. Do not guess type names that aren't in the table below or in `<lang>/claude-api/README.md`.
 
 <!-- The rows below were verified against each SDK's `synced/model-launch-april` branch. -->
 
@@ -509,7 +509,7 @@ When migrating a Bedrock file, apply the same rename-table row as first-party, t
 
 **Skip for Bedrock:** the `code_execution_*` tool-version checklist item and the **Task Budgets** section — neither is available on Bedrock (see `shared/platform-availability.md` for the per-feature table). Everything else in this guide — `effort`, adaptive/extended thinking, `output_config.format`, `thinking.display`, fine-grained tool streaming, token counting — is available on Bedrock.
 
-> **Out of scope:** the legacy Amazon Bedrock integration (`InvokeModel` / `Converse` APIs with ARN-versioned IDs like `anthropic.claude-3-5-sonnet-20241022-v2:0`) uses a different request shape and model-ID format. This guide does not cover it; use web browsing to open the Bedrock page in `shared/live-sources.md` if the user is migrating between the two Bedrock integrations.
+> **Out of scope:** the legacy Amazon Bedrock integration (`InvokeModel` / `Converse` APIs with ARN-versioned IDs like `anthropic.claude-3-5-sonnet-20241022-v2:0`) uses a different request shape and model-ID format. This guide does not cover it; use Codex web to fetch the Bedrock page in `shared/live-sources.md` if the user is migrating between the two Bedrock integrations.
 
 ### Claude Platform on AWS
 
@@ -554,7 +554,7 @@ For cached prompts: the render order and hash inputs did not change, so existing
 
 ## Migrating to Opus 4.7
 
-> **Model ID `claude-opus-4-7` is authoritative as written here.** When the user asks to migrate to Opus 4.7, write `model="claude-opus-4-7"` exactly. Do **not** browse to verify — this guide is the source of truth for migration target IDs. The corresponding entry exists in `shared/models.md`.
+> **Model ID `claude-opus-4-7` is authoritative as written here.** When the user asks to migrate to Opus 4.7, write `model="claude-opus-4-7"` exactly. Do **not** use Codex web to verify — this guide is the source of truth for migration target IDs. The corresponding entry exists in `shared/models.md`.
 
 Claude Opus 4.7 was Anthropic's most capable model at its launch and is now the previous-generation Opus (Opus 4.8 is current — see Migrating to Opus 4.8 below). It is highly autonomous and performs exceptionally well on long-horizon agentic work, knowledge work, vision tasks, and memory tasks. This section summarizes everything that was new at the 4.7 launch and remains the layered breaking-change path for callers coming from Opus 4.6 or older. It is layered on top of the 4.6 migration above — if the caller is jumping from Opus 4.5 or older, apply the 4.6 changes first, then this section, then the 4.8 section.
 
@@ -801,7 +801,7 @@ Every item is tagged: **`[BLOCKS]`** items cause a 400 error, infinite loop, sil
 
 ## Migrating to Opus 4.8
 
-> **Model ID `claude-opus-4-8` is authoritative as written here.** When the user asks to migrate to Opus 4.8, write `model="claude-opus-4-8"` exactly. Do **not** browse to verify — this guide is the source of truth for migration target IDs. The corresponding entry exists in `shared/models.md`.
+> **Model ID `claude-opus-4-8` is authoritative as written here.** When the user asks to migrate to Opus 4.8, write `model="claude-opus-4-8"` exactly. Do **not** use Codex web to verify — this guide is the source of truth for migration target IDs. The corresponding entry exists in `shared/models.md`.
 
 Claude Opus 4.8 is our most capable Opus-tier model — highly autonomous, with state-of-the-art long-horizon agentic execution, knowledge work, and memory. It is layered on top of the Opus 4.7 migration above. If the caller is jumping from Opus 4.6 or older, apply the 4.6 and 4.7 sections first, then this one.
 
@@ -897,7 +897,7 @@ For a caller **already on Opus 4.7**, only the first item is required; everythin
 
 ## Migrating to Claude Sonnet 5
 
-> **Model ID `claude-sonnet-5` is authoritative as written here.** When the user asks to migrate to Claude Sonnet 5, write `model="claude-sonnet-5"` exactly. Do **not** browse to verify — this guide is the source of truth for migration target IDs. The corresponding entry exists in `shared/models.md`.
+> **Model ID `claude-sonnet-5` is authoritative as written here.** When the user asks to migrate to Claude Sonnet 5, write `model="claude-sonnet-5"` exactly. Do **not** use Codex web to verify — this guide is the source of truth for migration target IDs. The corresponding entry exists in `shared/models.md`.
 
 Claude Sonnet 5 substantially improves on Sonnet 4.6 for coding and agentic work, reaching what was previously Opus-tier quality on many tasks. Its API surface aligns with Opus 4.7/4.8: manual extended thinking is removed (adaptive or disabled only, adaptive is the default), and non-default sampling parameters are rejected. This section is layered on top of the Sonnet 4.6 migration above — if the caller is jumping from Sonnet 4.5 or older, apply the 4.6 changes first, then this one.
 
@@ -1048,7 +1048,7 @@ Every item is tagged: **`[BLOCKS]`** items cause a 400 error or truncated output
 
 ## Migrating to Claude Fable 5
 
-> **Model IDs `claude-fable-5` and `claude-mythos-5` are authoritative as written here.** When the user asks to migrate to Claude Fable 5, write `model="claude-fable-5"` exactly; a Mythos Preview migrator in Project Glasswing writes `model="claude-mythos-5"` (everyone else: `claude-fable-5`). Do **not** browse to verify — this guide is the source of truth for migration target IDs. The corresponding entries exist in `shared/models.md`.
+> **Model IDs `claude-fable-5` and `claude-mythos-5` are authoritative as written here.** When the user asks to migrate to Claude Fable 5, write `model="claude-fable-5"` exactly; a Mythos Preview migrator in Project Glasswing writes `model="claude-mythos-5"` (everyone else: `claude-fable-5`). Do **not** use Codex web to verify — this guide is the source of truth for migration target IDs. The corresponding entries exist in `shared/models.md`.
 
 Claude Fable 5 is Anthropic's most capable widely released model — for the most demanding reasoning and long-horizon agentic work. **Claude Mythos 5** (`claude-mythos-5`) offers the same capabilities, pricing, and API behavior through Project Glasswing (participation is the only way to access it), and succeeds the invitation-only **Claude Mythos Preview** (`claude-mythos-preview`). Everything in this section applies to both models — only the ID differs. Mythos Preview migrators in Project Glasswing target `claude-mythos-5`; everyone else targets `claude-fable-5`. 1M token context window by default (the maximum is also the default), up to 128K output tokens per request.
 
@@ -1168,7 +1168,7 @@ Create **one state per conversation** — it is the pinning scope; sharing one a
 - **Go**: `option.WithMiddleware(betafallback.BetaRefusalFallbackMiddleware([]anthropic.BetaFallbackParam{{Model: ...}}))` (package `lib/betafallback`); state via `betafallback.WithBetaFallbackState(&betafallback.BetaFallbackState{})` passed as a request option. Server-side equivalents: `Fallbacks: []anthropic.BetaFallbackParam{...}` + `anthropic.AnthropicBetaServerSideFallback2026_06_01`.
 - **C#**: it's a *handler* — `new AnthropicClient { Handlers = [new BetaRefusalFallbackHandler { Fallbacks = [new(Model.ClaudeOpus4_8)] }] }` (namespace `Anthropic.Helpers`); state via `BetaFallbackState.Create()` scoped per call with `using (fallbackState.Use()) { ... }`. Server-side equivalents: `Fallbacks = [new(Model.ClaudeOpus4_8)]` + `AnthropicBeta.ServerSideFallback2026_06_01`.
 
-For languages not listed (Java, Ruby, PHP) — or for a full runnable program in any language — each public SDK repo ships a fallbacks example under `examples/` (e.g. `examples/fallbacks.py`, `examples/refusal-fallback/`): use web browsing to open the repo from `shared/live-sources.md` § SDK Repositories rather than improvising the binding.
+For languages not listed (Java, Ruby, PHP) — or for a full runnable program in any language — each public SDK repo ships a fallbacks example under `examples/` (e.g. `examples/fallbacks.py`, `examples/refusal-fallback/`): Use Codex web to fetch the repo from `shared/live-sources.md` § SDK Repositories rather than improvising the binding.
 
 **3. Hand-rolled retry + fallback credit (raw HTTP, or SDKs without the middleware).** Detect the refusal via `stop_reason` and re-send the conversation as-is on a model with broader availability such as `claude-opus-4-8` (Claude Fable 5's thinking blocks are silently ignored by other models — no stripping required); keep using the fallback model for subsequent turns. **Fallback credit** (beta: Claude API, Claude Platform on AWS, Amazon Bedrock, Vertex AI, and Microsoft Foundry) makes those retries cheaper. Prompt caches are per-model, so a plain retry pays cold cache-writes on the new model. With the `fallback-credit-2026-06-01` beta header (send it on both the original request and the retry), a refusal's `stop_details` carries `fallback_credit_token` (opaque; `null` when unavailable) and `fallback_has_prefill_claim`. Echo the token as the top-level `fallback_credit_token` request parameter on the retry (typed in the GA SDKs; on a pre-GA SDK pass it via `extra_body`) and the previously-cached span bills at cache-read rates — the retry costs what it would have if the conversation had been on that model all along. Rules: the retry body must match the refused request **exactly** in every prompt-shaping field (`system`, `messages`, `tools`, `tool_choice`, `thinking` — do **not** strip thinking blocks when redeeming a credit — the server handles them); the retry model must be in the refused model's `allowed_fallback_models`; the token expires in 5 minutes; Batches results carry no tokens. If `fallback_has_prefill_claim` is `true`, append one assistant message echoing the refused response's `content` — the retry model continues from where the refused model stopped (and completed server-tool work isn't re-run). When echoing, strip trailing whitespace from a final `text` block (the prefill validator rejects it; the credit match tolerates that edit), after omitting any unpaired `tool_use` blocks. On a 400, fall back to the unchanged body with the token; on a 400 naming `fallback_credit_token`, retry without it (credit forfeited).
 
