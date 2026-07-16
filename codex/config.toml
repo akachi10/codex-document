@@ -215,13 +215,13 @@ source_type = "local"
 source = "/Users/taoyawei/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
 [marketplaces.claude-plugins-official]
-last_updated = "2026-07-16T04:51:48Z"
-last_revision = "b5eddebc6444d73108941ee698f25fa8759b8710"
+last_updated = "2026-07-16T19:10:46Z"
+last_revision = "61414f8881f68c98a151e392de1a68e40e0989e7"
 source_type = "git"
 source = "https://github.com/anthropics/claude-plugins-official.git"
 
 [marketplaces.openai-primary-runtime]
-last_updated = "2026-07-16T04:06:22Z"
+last_updated = "2026-07-16T08:06:24Z"
 source_type = "local"
 source = "/Users/taoyawei/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime"
 
