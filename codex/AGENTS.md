@@ -6,13 +6,13 @@
 |------|------|
 | `/Users/taoyawei/.codex/AGENTS.md` | Codex 全局规则入口 |
 | `/Users/taoyawei/.codex/skills/` | Codex 用户 skills |
-| `/Users/taoyawei/.codex/agents/` | Codex 角色定义文件，用于 session 派发 subagent |
+| `/Users/taoyawei/.codex/agents/` | Codex 角色 prompt 模板，供 Session 读取后派发 subagent |
 
 ## 常用路径
 
 | 路径 | 用途 |
 |------|------|
-| `~/documents/Xnip` | 截图工具路径，用户说"看 BUG 截图"时查看此目录最新文件 |
+| `~/documents/Xnip` | 截图存放目录；用户说‘看 BUG 截图’时，查看其中最新的截图文件 |
 
 ---
 
@@ -151,9 +151,9 @@ Codex 用户 skills 位于 `/Users/taoyawei/.codex/skills/`。
 使用方式：
 
 1. 先读取对应 `SKILL.md` 或 `skill.md`
-2. 深入理解触发条件、职责边界、工具要求、输出要求
+2. 确认并遵循触发条件、职责边界、工具要求和输出要求
 3. 只读取完成任务所需的引用文件、脚本或资源
-4. 如果 skill 依赖 MCP 或外部命令但 Codex 当前不可用，说明阻塞并使用最合适的替代方案
+4. 如果 skill 依赖的 MCP 或外部命令当前不可用，先说明能力缺口；仅在不改变职责边界和输出契约时使用替代方案，否则报告阻塞
 
 重要 skill：
 
@@ -163,9 +163,9 @@ Codex 用户 skills 位于 `/Users/taoyawei/.codex/skills/`。
 | `browser-e2e-testing` | Web 浏览器端到端测试、Playwright、截图证据 |
 | `frontend-design` | 前端页面、组件、视觉设计、设计规范 |
 | `tech-council-review` | 已成型方案/PRD/架构/Sprint 计划落地前的技术委员会评审 |
-| `test-driven-development` | 明确要求 TDD、先写测试、测试驱动开发时 |
-| `tdd-amendment-bug-fix` | 白盒 bug 修复、需要黄色测试复现当前错误和 DB 状态断言时，与 TDD skill 同用 |
-| `layered-diagnosis` | 需要分层定位复杂问题、从现象拆到数据/接口/实现/环境层时 |
+| `test-driven-development` | 功能开发、Bug 修复、重构或行为变更，写实现代码前 |
+| `tdd-amendment-bug-fix` | 引用 test-driven-development 时一并应用：白盒 Bug 修复黄测、集成测试 DB 状态断言、完工后主动探雷 |
+| `layered-diagnosis` | 功能测试、Bug 复现/排查，或修改跨 DB/后端/前端故障前，先分层定位 |
 
 ## Codex 能力追索规则
 
@@ -181,7 +181,7 @@ Codex 用户 skills 位于 `/Users/taoyawei/.codex/skills/`。
 
 角色定义文件位于 `/Users/taoyawei/.codex/agents/`。
 
-这些文件是角色 prompt 模板，不会自动注册成 Codex 内置 agent。Session 负责决定何时读取哪个角色文件，并用 Codex subagent 工具派发任务。
+这些文件是角色 prompt 模板，不会自动注册成 Codex 内置 agent。Session 按任务决定读取哪个模板；需要派发时，用 `spawn_agent` 创建 subagent。
 
 ## Session 调度者原则（Codex 强制）
 
@@ -213,6 +213,7 @@ Session 默认是任务调度者，尤其面对大任务、长任务、多文件
    - 具体任务目标
    - 文件修改责任范围
    - "你不是独自在代码库中，不要回滚他人改动，要适配他人已有修改"
+   - 汇报义务：完成、遇阻以及长任务里程碑均主动用 `send_message` 向 Session 报告；细则见“后台 agent 通知处理协议”
 6. 代码修改类任务派给最合适的开发角色
 7. 只读探索、定位问题、代码库问答派给最合适的只读分析角色
 8. 并行派发时，各 subagent 的写入范围必须尽量互不重叠

@@ -7,11 +7,12 @@ description: Delegate work from Codex to Claude Code workers. Use when the user 
 
 Use this skill to create and operate Claude Code workers from Codex.
 
-The bundled runtime is `scripts/claude-companion.mjs`. It mirrors the Codex
-plugin's `codex-companion.mjs` shape: the skill is the thin instruction layer,
-and the companion script owns session/job state. It uses the official
-`@anthropic-ai/claude-agent-sdk` backend by default, keeps a `claude` CLI
-backend as a fallback, and stores state in `~/.codex/claude-delegate/`.
+The bundled runtime is `scripts/claude-companion.mjs`. The skill is the thin
+instruction layer, and the companion script owns session/job state. It uses the
+official `@anthropic-ai/claude-agent-sdk` backend by default and also provides a
+caller-selected `claude` CLI backend through `--backend cli`; SDK failures do
+not automatically retry through the CLI. State is stored in
+`~/.codex/claude-delegate/`.
 
 ## Permission Default
 
@@ -46,18 +47,24 @@ node ~/.codex/skills/claude-delegate/scripts/claude-companion.mjs remove <worker
 
 - `init` creates a named Claude team member. It does not spend tokens.
 - The first `send` starts a Claude Code session with the role prompt and task.
-- Later `send` calls use the saved `session_id` through
-  `@anthropic-ai/claude-agent-sdk` `query({ options: { resume } })`, so the
-  worker keeps its prior context without staying alive or spending tokens while
-  idle.
+- Later `send` calls resume the saved `session_id` through the selected backend:
+  `@anthropic-ai/claude-agent-sdk` `query({ options: { resume } })` for SDK, or
+  `claude -p --resume <session_id>` for CLI. The worker keeps its prior context
+  without staying alive or spending tokens while idle.
 - `--background` runs a turn in a detached process and returns a job id.
 - `status`, `result`, and `cancel` manage background jobs.
-- `--backend cli` switches a turn back to `claude -p --resume <session_id>` if
-  the SDK backend is unavailable or the caller wants exact CLI behavior.
+- `--backend cli` selects exact CLI behavior for a turn.
 
-This is a suspended worker model, not an always-on listener. Prefer it for team
-work because it preserves context while idle. If the user explicitly needs
-always-on inbox behavior, combine this skill with AgentMesh or Claude Channels.
+This is a suspended worker model: it preserves context between turns but does
+not provide an always-on listener. If always-on inbox behavior is required,
+report that this skill does not provide it.
+
+## Completion
+
+A foreground call is complete only after it returns successfully. A background
+dispatch is not complete when it returns a job id: wait for `status` to become
+`completed`, retrieve the `result`, then review and verify it. `failed` and
+`cancelled` jobs are not complete.
 
 ## Review / Seminar Mode
 

@@ -24,6 +24,8 @@ This checks Codex subscription usage from the ChatGPT/Codex backend:
 - reset times
 
 This is different from OpenAI API usage at `platform.openai.com/usage`.
+The tool reports aggregate plan windows; it cannot attribute usage to a single
+conversation.
 
 ## Preferred Command
 
@@ -43,7 +45,7 @@ Do not print or expose `~/.codex/auth.json` contents. Only report the usage summ
 
 ## If The Command Is Missing
 
-If `~/.codex/runtime/codex-usage-venv/bin/codex-cli-usage` does not exist, recreate the stable environment from the official PyPI index using the verified package version:
+If `~/.codex/runtime/codex-usage-venv/bin/codex-cli-usage` does not exist, recreate the stable environment from the official PyPI index using the pinned package version:
 
 ```bash
 mkdir -p ~/.codex/runtime
@@ -56,6 +58,13 @@ The package requires Python 3.12+.
 ## Network Notes
 
 The command needs network access. If it fails with DNS, connection, or sandbox-related network errors, rerun it with escalated network permission.
+
+## Completion
+
+The query succeeds only when the command exits with status zero and returns a
+subscription usage summary. If authentication or network access fails, or
+required fields are missing, report the failure and missing fields; do not guess
+values or substitute data from the API dashboard.
 
 ## Response Format
 
