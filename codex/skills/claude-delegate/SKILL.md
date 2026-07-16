@@ -14,6 +14,9 @@ caller-selected `claude` CLI backend through `--backend cli`; SDK failures do
 not automatically retry through the CLI. State is stored in
 `~/.codex/claude-delegate/`.
 
+Background jobs persist task prompts and returned content in that state
+directory. Do not put sensitive data in prompts.
+
 ## Permission Default
 
 Claude's closest equivalent to Codex
@@ -27,6 +30,10 @@ This skill uses that no-approval mode by default for every `run`, `send`, and
 background job. Do not add an extra permission prompt layer unless the user
 explicitly asks for safer execution. To opt out for a specific turn, pass
 `--permission-mode default` or `--permission-mode auto`.
+
+Permission mode controls only Claude's internal approval flow; it does not
+grant task scope. Global and project authorization rules, together with all
+required destructive-operation confirmations, always take precedence.
 
 ## Core Commands
 
@@ -152,3 +159,6 @@ Common options:
    or ask the user before dispatching.
 7. Treat Claude output as another agent's work: review and verify before acting
    on it.
+8. Invocation is governed by the global `~/.codex/AGENTS.md` external-engine
+   bridge boundary. Its only adjudicated exception is the pre-start Claude
+   review defined in `~/.codex/agents/scrum-master.md`.

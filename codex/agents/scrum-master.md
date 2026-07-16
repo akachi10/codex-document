@@ -100,6 +100,8 @@ SM 写完验收标准后，**由 Session 使用 `send_message` / `followup_task`
 
 ### Claude 预审（可选，开工前）
 
+本小节是全局 `~/.codex/AGENTS.md`“外部引擎桥接边界”的经用户裁决例外，仅限 Sprint 开工前预审，不扩展到其他 Claude 调用。
+
 有条件时，Sprint 文档与验收标准**在开始开发工作前**可经 `claude-delegate` skill 派 Claude 做第二视角审查——挑验收标准是否曲解需求、是否漏场景、Sprint 边界是否清晰。
 
 - **模型级别门槛（强制）**：仅接受 **Opus 4.8 / Fable 5 级**的高能力模型执行该审查；低于此能力级别不做此预审。

@@ -432,3 +432,22 @@
 - `AgentMesh`、`Claude Channels`、不存在的 Codex plugin 类比及 `verified package version` 残留均为 `0`。
 - 报告敏感值模式扫描为 `0`；落盘阶段未读取 `auth.json`、`node_modules`、状态内容、脚本或 `.system`，未发起 Claude 请求。
 - `git diff --check` 与报告未跟踪文件的 whitespace check 均通过；暂存区路径为 `0`。本执行单元未执行 `git add`、commit 或 push，且未触碰其他 worker 的既有变更。
+
+## 裁决执行记录
+
+- 执行日期：2026-07-16（America/Los_Angeles）。
+- 改前备份已创建并以 `cmp` 验证：`~/.codex/AGENTS.md.bak-s4fix-20260716`、`~/.codex/agents/scrum-master.{md,toml}.bak-s4fix-20260716`、`~/.codex/skills/claude-delegate/SKILL.md.bak-s4fix-20260716`、`~/.codex/skills/codex-usage/SKILL.md.bak-s4fix-20260716`。
+- 开工前仓库对账抽查 `codex/AGENTS.md`、`codex/agents/code-reviewer.toml`、`codex/skills/dispatch-briefing/SKILL.md`，三者均与 `~/.codex` 对端不一致；因此按裁决未创建 `S4-sync` 提交。以下 S4-fix 只提交本节 12 条裁决，不夹带现场既有的 36 文件差异。
+
+1. **直接请求／命令语义是执行授权必要条件** → `~/.codex/AGENTS.md` 与 `codex/AGENTS.md`「工作授权与沟通纪律 / 明确执行请求」；明确假设句、引用句、背景叙述不构成授权。
+2. **偏好／背景信息／反馈按非执行信息处理** → `~/.codex/AGENTS.md` 与 `codex/AGENTS.md`「工作授权与沟通纪律 / 非执行信息」。
+3. **能力追索分流** → `~/.codex/AGENTS.md` 与 `codex/AGENTS.md`「Codex 能力追索规则」及「subagent 派发规则」第 3 项；规则引用的缺失能力先追索，用户点名的特定角色文件缺失则直接报告。
+4. **调度授权不扩大任务授权** → `~/.codex/AGENTS.md` 与 `codex/AGENTS.md`「Session 调度者原则」收口句；显式限定为“在用户已授权的任务范围内”。
+5. **subagent 完成信号消歧** → `~/.codex/AGENTS.md`「subagent 派发规则」第 9 项及 `codex/AGENTS.md` 同节收口句；改为收到实质报告或据现场确认完成后再验收。
+6. **Scrum Master 开工前 Claude 预审是经裁决窄例外** → `~/.codex/AGENTS.md` 与 `codex/AGENTS.md`「外部引擎桥接边界」；`~/.codex/agents/scrum-master.md`、`.toml` 与 `codex/agents/scrum-master.md`、`.toml`「Claude 预审（可选，开工前）」。
+7. **permission mode 不授予任务范围** → `~/.codex/skills/claude-delegate/SKILL.md` 与 `codex/skills/claude-delegate/SKILL.md`「Permission Default／Permission Safety」；全局、项目授权和破坏性确认始终优先。
+8. **Operating Rules 引用全局桥接边界及 SM 例外** → 两份 `claude-delegate/SKILL.md`「Operating Rules」第 8 项。
+9. **后台 job 持久化敏感信息提醒** → 两份 `claude-delegate/SKILL.md` 状态目录说明；明确后台任务持久化 prompt 与返回内容，敏感数据不得进入 prompt。
+10. **缺失 venv／依赖不自动安装第三方包** → `~/.codex/skills/codex-usage/SKILL.md` 与 `codex/skills/codex-usage/SKILL.md`「If The Command Is Missing」；先报告并取得用户确认。
+11. **网络重试限于 runtime 已存在且已授权路径** → 两份 `codex-usage/SKILL.md`「Network Notes」；否则报告阻塞。
+12. **同步仓库镜像** → 上述 `codex/` 对应文件均落入 S4-fix 提交；提交内容以 `~/.codex` 改后权威版本构造，工作区中 A 阶段发现的既有差异继续保持未提交，不归入本次裁决。

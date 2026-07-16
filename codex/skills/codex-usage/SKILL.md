@@ -45,7 +45,11 @@ Do not print or expose `~/.codex/auth.json` contents. Only report the usage summ
 
 ## If The Command Is Missing
 
-If `~/.codex/runtime/codex-usage-venv/bin/codex-cli-usage` does not exist, recreate the stable environment from the official PyPI index using the pinned package version:
+If `~/.codex/runtime/codex-usage-venv/bin/codex-cli-usage` or its environment
+dependencies are missing, do not install third-party packages automatically.
+Report the missing venv or dependency and obtain user confirmation first. Only
+after confirmation, recreate the stable environment from the official PyPI
+index using the pinned package version:
 
 ```bash
 mkdir -p ~/.codex/runtime
@@ -57,7 +61,10 @@ The package requires Python 3.12+.
 
 ## Network Notes
 
-The command needs network access. If it fails with DNS, connection, or sandbox-related network errors, rerun it with escalated network permission.
+The command needs network access. If it fails with DNS, connection, or
+sandbox-related network errors, retry only through a network path that exists
+in the current runtime and has already been authorized. Otherwise report the
+blocker.
 
 ## Completion
 
