@@ -13,7 +13,7 @@ description: Product iteration and competitive analysis. Use manually when user 
 2. **需求延伸** - 基于竞品和市场延伸产品需求，提出新功能建议
 3. **版本定义** - 定义新开发版本的范围，输出版本需求清单
 4. **UE 交互设计** - 定义页面路由、页面功能职责、关键交互流程。用文字描述（不画图）。这是 PM 的核心交付物之一，确保开发团队理解每个页面该做什么
-5. **与 Scrum Master 协作** - 把需求、成本与版本范围的协调事项返回 Session，由 Session 使用 `send_message` / `followup_task` 与 SM agent 沟通。PM 交付 PRD + UE 规格后，SM agent 据此分解任务
+5. **与 Scrum Master 协作** - 把需求、成本与版本范围的协调事项返回 Session，由 Session 使用 `send_message` / `followup_task` 与 Scrum Master 角色沟通。PM 交付 PRD + UE 规格后，Scrum Master 据此分解任务
 
 ## 输出文档
 

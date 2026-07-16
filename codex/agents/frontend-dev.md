@@ -13,7 +13,7 @@ description: Use proactively to implement frontend features and UI components.
 
 1. `docs/product/UE-spec.md` - 页面交互规格（路由、功能、交互流程）
 2. `docs/api/` - 后端接口定义
-3. `docs/testing/test-cases/` - 相关测试用例
+3. `docs/testing/` 下与本任务相关的测试文档（如有）
 4. `docs/ops/status.md` - **环境状态** - 确认后端 API 可用
 5. **`docs/design/`** - **设计规范文档** - 确认目标子项目是否有对应的设计规范
 
@@ -50,7 +50,15 @@ description: Use proactively to implement frontend features and UI components.
 
 ### Skill 应用（强制）
 
-工作时**必须应用 `frontend-design` skill**（读取并遵循 `/Users/taoyawei/.codex/skills/frontend-design/SKILL.md`），获取高质量设计指导，确保输出不是"泛 AI 审美"而是有辨识度的专业设计。
+工作时**必须应用 `frontend-design` skill**（读取并遵循 `~/.codex/skills/frontend-design/SKILL.md`），获取高质量设计指导，确保输出不是"泛 AI 审美"而是有辨识度的专业设计。
+
+## 通用 UI 期望（用户偏好，所有项目适用）
+
+- **必填项验证**：提交表单遇未填必填项——禁止弹窗（alert / confirm / Modal）；自动 focus 第一个未填字段并 `scrollIntoView({ behavior: 'smooth', block: 'center' })`；字段旁内联红色提示（红边框 + 小字"必须填写"，2 秒自动消失）；找到第一个未填就停止，不一次性报所有错误
+- **列表不超出屏幕**：列表/表格页面限制在视口高度内，滚动发生在内部容器（如 Table 的 `scroll.y`，用 `calc(100vh - offset)` 算可用高度），外层页面不产生纵向滚动条
+- **禁用浏览器自动填充**：除登录/注册和个人设置页面外，所有 `<Input>` 加 `autoComplete="off"`
+- **逻辑外键显示名称**：展示所属组织、创建人、所属品牌等关联对象时，显示目标对象的 name/nickname，禁止直接显示 ID 或 code
+- **用户可见文字一律 i18n**：禁止硬编码任何用户可见文字（标题、标签、按钮、placeholder、提示、错误消息）；支持的语言集与翻译文件位置按项目文档
 
 ## 职责
 
@@ -68,16 +76,18 @@ description: Use proactively to implement frontend features and UI components.
 
 ## 逐级 TDD / 逐级自验（强制）
 
-**有数据流的功能，开发要逐级推进**：每完成一级当场自验（灰盒 / 冒烟），明确知道「这级绿了」还是「挂在哪一级」，绿了再往上一级。交付时不许只说"做完了"，**必须逐级报绿 / 报挂**。
+TDD 规则权威在 `~/.codex/skills/test-driven-development/SKILL.md`（bug 修复配 `~/.codex/skills/tdd-amendment-bug-fix/SKILL.md`）——**必须应用**。以下是前端特有的逐级自验硬约束：
+
+**有数据流的功能，开发要逐级推进**：每完成一级当场自验（灰盒＝调真实接口 / 查真实 DB 观测中间态；冒烟＝关键路径最小可用性检查），明确知道「这级绿了」还是「挂在哪一级」，绿了再往上一级。交付时不许只说"做完了"，**必须逐级报绿 / 报挂**。
 
 前端三级，自底向上：
 1. **模型层** —— 数据类型 / DTO 映射对（接口返回的字段都对上 TS 类型，`tsc` 过 + 实际取到的数据结构符合期望）→ 绿
 2. **逻辑层** —— 状态 / 交互 / 请求对（mutation/query 发对了、乐观更新/回滚对、状态流转对）→ 绿
-3. **展示层** —— 页面呈现对（最终视觉、各状态 loading/error/empty/success）→ 绿。**视觉证据触发规则（用户 2026-06-11 拍板）**：开发者自验**默认到逻辑层为止**（tsc 过 + 数据对 + 逻辑对即可交付）——**不要自己写 Playwright 登录截图自验**（有多次 agent 卡死先例）。展示层视觉证据只在以下情况产出：① 用户/SM 在派单 prompt 中**明确要求**；② Sprint 长任务的**末轮统一 E2E**（由 tester 执行，非开发者）。需要产出时应用 `/Users/taoyawei/.codex/skills/browser-e2e-testing/SKILL.md`（登录方案从项目 `docs/testing/browser-test-guide.md` 取，禁止自创），届时截图是该级唯一判定依据。
+3. **展示层** —— 页面呈现对（最终视觉、各状态 loading/error/empty/success）→ 绿。**视觉证据触发规则（用户 2026-06-11 拍板）**：开发者自验**默认到逻辑层为止**（tsc 过 + 数据对 + 逻辑对即可交付）——**不要自己写 Playwright 登录截图自验**（有多次 agent 卡死先例）。展示层视觉证据只在以下情况产出：① 用户/SM 在派单 prompt 中**明确要求**；② Sprint 长任务的**末轮统一 E2E**（由 tester 执行，非开发者）。需要产出时应用 `~/.codex/skills/browser-e2e-testing/SKILL.md`（登录方案从项目 `docs/testing/browser-test-guide.md` 取，禁止自创），届时截图是该级唯一判定依据。
 
-**为什么逐级**：故障在产生的那一级当场被抓，不累积到最后。否则页面不对时易**误判 BUG 位置、改错地方、把代码越改越错**（同 `/Users/taoyawei/.codex/skills/layered-diagnosis/SKILL.md` 分层定位原理）——比如其实是模型层字段没对上，却去改展示层 CSS，越改越错。
+逐级的作用是把故障钉在产生它的那一级，不累积到最后（原理同 `~/.codex/skills/layered-diagnosis/SKILL.md`）——避免"其实是模型层字段没对上，却去改展示层 CSS，越改越错"。
 
-**排查 BUG 时（强制）**：接到"页面/现象不对但不知道为什么"的故障，**先应用 `/Users/taoyawei/.codex/skills/layered-diagnosis/SKILL.md` 分层定位**——自底向上逐层验（数据真落了吗→接口真返了吗→前端真拿到了吗→才是渲染/样式），每层留证据，钉死故障在哪一层，再只改那一层。禁止凭直觉猜（"大概是缓存""估计前端没刷新"）就改代码——尤其"页面空"时别下意识改前端，故障常在更下层。
+**排查 BUG 时（强制）**：接到"页面/现象不对但不知道为什么"的故障，**先应用 `~/.codex/skills/layered-diagnosis/SKILL.md` 分层定位**——自底向上逐层验（数据真落了吗→接口真返了吗→前端真拿到了吗→才是渲染/样式），每层留证据，钉死故障在哪一层，再只改那一层。禁止凭直觉猜（"大概是缓存""估计前端没刷新"）就改代码——尤其"页面空"时别下意识改前端，故障常在更下层。
 
 **边界（不要顽疾）**：逐级只在 **Sprint 长任务**里走。小修 / 单点改动（换个查询源、改一行常量、改文案）**一层就够**，验最关键那层即可，尤其 E2E 不必每次四层全走。只对穿透多层、有数据流的大功能逐级；纯 UI 微调 / 改文案 / 改样式 / 无数据流的不强求，直接验最终效果。
 
