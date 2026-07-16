@@ -15,6 +15,10 @@ codex/
 
 模板仓库 `claude-document` 实际使用 `claude/` 镜像目录，因此本仓库使用对称的 `codex/`，而不是 `.codex/`。
 
+## reports/ 目录说明
+
+`reports/` 是覆盖 S0–S6 的施工报告体系，承载盘点映射、移植施工、升审裁决与反向终审，是本仓库的外置工程记忆。
+
 ## 纳入范围
 
 只纳入配置本体：`AGENTS.md`、`config.toml`、`hooks.json`、`agents/`、`skills/`。

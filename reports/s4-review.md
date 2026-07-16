@@ -445,7 +445,7 @@
 4. **调度授权不扩大任务授权** → `~/.codex/AGENTS.md` 与 `codex/AGENTS.md`「Session 调度者原则」收口句；显式限定为“在用户已授权的任务范围内”。
 5. **subagent 完成信号消歧** → `~/.codex/AGENTS.md`「subagent 派发规则」第 9 项及 `codex/AGENTS.md` 同节收口句；改为收到实质报告或据现场确认完成后再验收。
 6. **Scrum Master 开工前 Claude 预审是经裁决窄例外** → `~/.codex/AGENTS.md` 与 `codex/AGENTS.md`「外部引擎桥接边界」；`~/.codex/agents/scrum-master.md`、`.toml` 与 `codex/agents/scrum-master.md`、`.toml`「Claude 预审（可选，开工前）」。
-7. **permission mode 不授予任务范围** → `~/.codex/skills/claude-delegate/SKILL.md` 与 `codex/skills/claude-delegate/SKILL.md`「Permission Default／Permission Safety」；全局、项目授权和破坏性确认始终优先。
+7. **permission mode 不授予任务范围** → `~/.codex/skills/claude-delegate/SKILL.md` 与 `codex/skills/claude-delegate/SKILL.md`「Permission Default」；全局、项目授权和破坏性确认始终优先。
 8. **Operating Rules 引用全局桥接边界及 SM 例外** → 两份 `claude-delegate/SKILL.md`「Operating Rules」第 8 项。
 9. **后台 job 持久化敏感信息提醒** → 两份 `claude-delegate/SKILL.md` 状态目录说明；明确后台任务持久化 prompt 与返回内容，敏感数据不得进入 prompt。
 10. **缺失 venv／依赖不自动安装第三方包** → `~/.codex/skills/codex-usage/SKILL.md` 与 `codex/skills/codex-usage/SKILL.md`「If The Command Is Missing」；先报告并取得用户确认。
