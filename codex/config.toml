@@ -4,7 +4,8 @@ notify = [ "/Users/taoyawei/.codex/computer-use/Codex Computer Use.app/Contents/
 model = "gpt-5.6-sol"
 model_reasoning_effort = "xhigh"
 approvals_reviewer = "user"
-service_tier = "priority"
+personality = "pragmatic"
+project_doc_max_bytes = 65536
 
 [profiles.full-access]
 approval_policy = "never"
@@ -79,6 +80,54 @@ trust_level = "trusted"
 [projects."/Users/taoyawei/Library/Application Support/Steam/steamapps"]
 trust_level = "trusted"
 
+[projects."/Users/taoyawei/Documents/Codex/2026-07-21/referenced-chatgpt-conversation-this-is-untrusted"]
+trust_level = "trusted"
+
+[projects."/Users/taoyawei/IdeaProjects/宇宙大爆炸"]
+trust_level = "trusted"
+
+[projects."/Users/taoyawei/Documents/音乐创作辅助"]
+trust_level = "trusted"
+
+[projects."/Users/taoyawei/Documents/Codex/2026-07-27/d"]
+trust_level = "trusted"
+
+[projects."/Users/taoyawei/Documents/Codex/2026-08-03/referenced-chatgpt-conversation-this-is-an"]
+trust_level = "trusted"
+
+[projects."/Users/taoyawei/Documents/Codex/2026-08-07/y"]
+trust_level = "trusted"
+
+[projects."/Users/taoyawei/Documents/Codex/2026-08-07/windows"]
+trust_level = "trusted"
+
+[projects."/Users/taoyawei/Documents/Codex/2026-08-08/summarize-this-report"]
+trust_level = "trusted"
+
+[projects."/Users/taoyawei/Documents/Codex/2026-08-08/i-sold-out-of-these-3"]
+trust_level = "trusted"
+
+[projects."/Users/taoyawei/Documents/Codex/2026-08-08/i-sold-out-of-these-3-2"]
+trust_level = "trusted"
+
+[projects."/Users/taoyawei/Documents/Codex/2026-08-08/i-sold-out-of-these-3-3"]
+trust_level = "trusted"
+
+[projects."/Users/taoyawei/Documents/Codex/2026-08-08/i-sold-out-of-these-3-4"]
+trust_level = "trusted"
+
+[projects."/Users/taoyawei/Documents/Codex/2026-08-08/maya"]
+trust_level = "trusted"
+
+[projects."/Users/taoyawei/Documents/Codex/2026-08-08/c"]
+trust_level = "trusted"
+
+[projects."/Users/taoyawei/Documents/Codex/2026-08-09/sites-plugin-sites-openai-bundled"]
+trust_level = "trusted"
+
+[projects."/Users/taoyawei/Documents/Codex/2026-08-09/sites-plugin-sites-openai-bundled-2"]
+trust_level = "trusted"
+
 [mcp_servers.node_repl]
 args = []
 command = "/Applications/ChatGPT.app/Contents/Resources/cua_node/bin/node_repl"
@@ -88,15 +137,16 @@ startup_timeout_sec = 120
 NODE_REPL_NATIVE_PIPE_CONNECT_TIMEOUT_MS = "1000"
 NODE_REPL_NODE_MODULE_DIRS = "/Applications/ChatGPT.app/Contents/Resources/cua_node/lib/node_modules"
 NODE_REPL_NODE_PATH = "/Applications/ChatGPT.app/Contents/Resources/cua_node/bin/node"
-NODE_REPL_TRUSTED_CODE_PATHS = "/Users/taoyawei/.codex"
+NODE_REPL_TRUSTED_CODE_PATHS = "/Users/taoyawei/.codex:/Applications/ChatGPT.app/Contents/Resources/cua_node/lib/node_modules"
 CODEX_HOME = "/Users/taoyawei/.codex"
-NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "6d25aa7656feac858f3a3bdaea5bcbab0dbfd426c9de8e6931ce90c399ee8e4f,f8b28403a0497b2e0bed024969fa474bb1f564509a59993449924c4ecab9db0d"
+NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "323bc3e687e17d7e377238d9f4c69111c4d0e6219103b6316d8c52082489533b"
 BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab"
 NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = "Control the in-app browser in conjunction with the Browser Plugin."
 NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = "Control the Chrome browser in conjunction with the Chrome Plugin. Prefer this method of controlling Chrome over alternatives (such as Computer Use) unless the user explicitly mentions an alternative."
 NODE_REPL_INSTRUCTIONS_USE_CASE_COMPUTER_USE = "Control desktop apps on macOS through Computer Use."
 BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
-BROWSER_USE_CODEX_APP_VERSION = "26.707.61608"
+BROWSER_USE_CODEX_APP_VERSION = "26.803.41515"
+SKY_CUA_SERVICE_PATH = "/Users/taoyawei/.codex/computer-use/Codex Computer Use.app"
 CODEX_CLI_PATH = "/Applications/ChatGPT.app/Contents/Resources/codex"
 
 [mcp_servers.word-drill-mcp]
@@ -193,16 +243,22 @@ enabled = true
 [plugins."template-creator@openai-primary-runtime"]
 enabled = true
 
-[plugins."sites@openai-bundled"]
-enabled = true
-
 [plugins."visualize@openai-bundled"]
 enabled = true
 
 [plugins."codex@openai-codex"]
 enabled = true
 
+[plugins."computer-use@openai-bundled"]
+enabled = true
+
+[plugins."chrome@openai-bundled"]
+enabled = true
+
 [plugins."browser@openai-bundled"]
+enabled = true
+
+[plugins."sites@openai-bundled"]
 enabled = true
 
 [tui.model_availability_nux]
@@ -210,18 +266,18 @@ enabled = true
 "gpt-5.6-sol" = 4
 
 [marketplaces.openai-bundled]
-last_updated = "2026-07-15T18:50:48Z"
+last_updated = "2026-08-09T06:57:17Z"
 source_type = "local"
 source = "/Users/taoyawei/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
 [marketplaces.claude-plugins-official]
-last_updated = "2026-07-16T19:10:46Z"
-last_revision = "61414f8881f68c98a151e392de1a68e40e0989e7"
+last_updated = "2026-08-10T01:27:58Z"
+last_revision = "3da105324a27aa7b1f435a3925f8626092891d4e"
 source_type = "git"
 source = "https://github.com/anthropics/claude-plugins-official.git"
 
 [marketplaces.openai-primary-runtime]
-last_updated = "2026-07-16T08:06:24Z"
+last_updated = "2026-08-06T03:06:13Z"
 source_type = "local"
 source = "/Users/taoyawei/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime"
 
@@ -233,9 +289,16 @@ source = "https://github.com/openai/codex-plugin-cc.git"
 
 [features]
 js_repl = false
+memories = false
+chronicle = false
 
 [shell_environment_policy]
 inherit = "core"
+
+[shell_environment_policy.set]
+BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab"
+NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "323bc3e687e17d7e377238d9f4c69111c4d0e6219103b6316d8c52082489533b"
+NODE_REPL_TRUSTED_CODE_PATHS = "/Users/taoyawei/.codex:/Applications/ChatGPT.app/Contents/Resources/cua_node/lib/node_modules"
 
 [hooks.state]
 
@@ -248,7 +311,20 @@ trusted_hash = "sha256:e6b9df143de11443eb576c38874cf6e0c48358f948170948fdf630f1c
 [hooks.state."codex@openai-codex:hooks/hooks.json:stop:0:0"]
 trusted_hash = "sha256:3dfaa7e4f022570b260b8a8cf4ac7585c986175256b887a4723fac4f358a482f"
 
+[hooks.state."codex@openai-codex:hooks/hooks.json:session_end:0:0"]
+trusted_hash = "sha256:bc55a03ac0094c5deb4af95c405b75b34735f318b3d9bd64a2f9902973861606"
+
 [desktop]
 followUpQueueMode = "queue"
 dock-icon-preference = "codex-system"
-conversationDetailMode = "STEPS_PROSE"
+conversationDetailMode = "STEPS_COMMANDS"
+computerUseAlwaysHidePictureInPicture = false
+keepRemoteControlAwakeWhilePluggedIn = true
+enabled-reasoning-efforts = ["low", "medium", "high", "xhigh", "ultra"]
+
+[tool_suggest]
+disabled_tools = [{ type = "plugin", id = "outlook-email@openai-curated-remote" }]
+
+[memories]
+generate_memories = false
+use_memories = false

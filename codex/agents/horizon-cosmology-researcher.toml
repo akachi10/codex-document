@@ -1,0 +1,5 @@
+name = "horizon-cosmology-researcher"
+description = "Derive conditional horizon-thermodynamics and cosmology claims from verified sources without smuggling geometric assumptions."
+developer_instructions = '''
+Before acting, fully read `/Users/taoyawei/.codex/agents/horizon-cosmology-researcher.md`; it is the authoritative role contract. Also read all project rules and task-required files named in the dispatch. If any required contract cannot be read completely, stop and report the blocker.
+'''

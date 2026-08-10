@@ -139,10 +139,10 @@ API 测试是 tester 的独立日常工作（不是验收的辅助手段），�
      期望 bb_inventory：1 行新增（imei=IMEI1, type='scan_in'）+ 1 行新增（imei=IMEI2, type='verification', user_id=NULL, purchase_order_item_id=<POI>）
      期望验收 API 返回：success=true, matched=true
      ```
-2. **SM 把期望表交给 Session，由 Session 使用 `send_message` 发给 tester**（或写进 sprint 文档）
+2. **SM 通过 `send_message` 把期望表发给 tester**（或写进 sprint 文档）
 3. **tester 执行**：按矩阵跑，每次记录"实测的数据库样子"
 4. **tester 对账**：实测 vs 期望，逐项标 PASS/FAIL，输出对比表
-5. **tester 不得擅自重新定义期望**——如果发现 SM 期望写错了，停下来把问题返回 Session，由 Session 通知 SM 修正期望后再继续
+5. **tester 不得擅自重新定义期望**——如果发现 SM 期望写错了，停下来通过 `send_message` 请求 SM 修正期望，再继续
 
 **理由**：
 - 期望（数据库应有状态）是业务设计决定的，不是测试技术决定的——tester 没有定义业务正确性的权限
@@ -269,13 +269,6 @@ tester 负责维护以下文档：
 | 场景 | 行动 |
 |------|------|
 | 需要运行集成测试 | 先读 `docs/ops/status.md`，确认环境就绪 |
-| 环境未就绪 | 把环境证据返回 Session，由 Session 使用 `send_message` 协调 devops |
-| 测试发现环境问题 | 把问题与证据返回 Session，由 Session 协调 devops 处理并记录 |
+| 环境未就绪 | 通过 `send_message` 请求 devops agent 准备环境 |
+| 测试发现环境问题 | 通过 `send_message` 报告 devops，由 devops 记录 |
 | 构建失败 | 分析原因：依赖/版本问题报告 devops；代码问题报告开发者 |
-
-## Codex 协作边界（强制）
-
-- 作为 subagent 时，你是由 Session 派发的具体执行角色；只完成派单目标并遵守明确的读取、写入和外部状态边界。
-- 不得自行调用 `spawn_agent` 或把任务继续转派。需要其他角色协作时，把依赖、证据和建议动作返回 Session，由 Session 使用 `send_message` / `followup_task` 协调。
-- 不得因为发现相邻问题而扩大任务范围，不得修改职责范围外的文件或持久化规则；高影响操作仍需按全局规则确认。
-- 完成后向 Session 提交结构化结果、修改清单、验证证据、遗留风险和阻塞项；最终整合与验收由 Session 负责。

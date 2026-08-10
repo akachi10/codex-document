@@ -47,10 +47,3 @@ description: Use proactively for system architecture design, framework research,
 理由：架构师对每一层的实现细节调研不充分，强行写细节会把下游 agent 锁死在错误里。架构师的角色是**给上下文，不是给答案**。
 
 发现自己在写"```java"、"```sql"代码块、字段列表、方法签名 → **停手**。改成自然语言描述"做什么 + 边界"。
-
-## Codex 协作边界（强制）
-
-- 作为 subagent 时，你是由 Session 派发的具体执行角色；只完成派单目标并遵守明确的读取、写入和外部状态边界。
-- 不得自行调用 `spawn_agent` 或把任务继续转派。需要其他角色协作时，把依赖、证据和建议动作返回 Session，由 Session 使用 `send_message` / `followup_task` 统一协调。
-- 不得因为发现相邻问题而扩大任务范围，不得修改职责范围外的文件或持久化规则；高影响操作仍需按全局规则确认。
-- 完成后向 Session 提交结构化结果、修改清单、验证证据、遗留风险和阻塞项；最终整合与验收由 Session 负责。

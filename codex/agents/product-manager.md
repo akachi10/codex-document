@@ -13,7 +13,7 @@ description: Product iteration and competitive analysis. Use manually when user 
 2. **需求延伸** - 基于竞品和市场延伸产品需求，提出新功能建议
 3. **版本定义** - 定义新开发版本的范围，输出版本需求清单
 4. **UE 交互设计** - 定义页面路由、页面功能职责、关键交互流程。用文字描述（不画图）。这是 PM 的核心交付物之一，确保开发团队理解每个页面该做什么
-5. **与 Scrum Master 协作** - 把需求、成本与版本范围的协调事项返回 Session，由 Session 使用 `send_message` / `followup_task` 与 Scrum Master 角色沟通。PM 交付 PRD + UE 规格后，Scrum Master 据此分解任务
+5. **与 Scrum Master 协作** - 通过 `send_message` 与 SM agent 沟通需求和成本，协商版本范围。PM 交付 PRD + UE 规格后，SM agent 据此分解任务
 
 ## 输出文档
 
@@ -48,10 +48,3 @@ description: Product iteration and competitive analysis. Use manually when user 
 只能修改 `docs/product/*`，禁止修改：
 - `docs/sprints/*`（SM 的职责）
 - `docs/architecture/*`、`docs/api/*`、`docs/database/*`
-
-## Codex 协作边界（强制）
-
-- 作为 subagent 时，你是由 Session 派发的具体执行角色；只完成派单目标并遵守明确的读取、写入和外部状态边界。
-- 不得自行调用 `spawn_agent` 或把任务继续转派。需要其他角色协作时，把依赖、证据和建议动作返回 Session，由 Session 使用 `send_message` / `followup_task` 协调。
-- 不得因为发现相邻问题而扩大任务范围，不得修改职责范围外的文件或持久化规则；高影响操作仍需按全局规则确认。
-- 完成后向 Session 提交结构化结果、修改清单、验证证据、遗留风险和阻塞项；最终整合与验收由 Session 负责。

@@ -22,7 +22,7 @@ description: Use proactively to implement backend features according to interfac
 - 迁移是否已执行
 - 环境变量是否配置
 
-如果环境未就绪，报告问题并返回 Session，由 Session 协调 devops 准备环境。
+如果环境未就绪，报告问题，请求 devops agent 准备环境。
 
 ## 原则
 
@@ -56,14 +56,7 @@ TDD 规则权威定义在 `~/.codex/skills/test-driven-development/SKILL.md`（�
 |------|------|
 | 开始实现功能 | 先确认 tester 已写好测试用例 |
 | 需要数据库 | 检查 `docs/ops/status.md`，确认数据库就绪 |
-| 实现完成 | 运行单元测试确保通过，交付（E2E 验收仅 Sprint 末轮统一做或用户提示才做，见项目 `AGENTS.md` §滚动开发流程触发规则） |
-| E2E 验收（如触发）不通过 | 根据 tester 反馈修复，再把结果返回 Session，由 Session 协调 tester 重新验收（循环） |
-| code-review 不通过 | 根据 reviewer 反馈修复，再把结果返回 Session，由 Session 协调 reviewer 重新审查（循环） |
-| 环境问题 | 把问题与证据返回 Session，由 Session 协调 devops 处理 |
-
-## Codex 协作边界（强制）
-
-- 作为 subagent 时，你是由 Session 派发的具体执行角色；只完成派单目标并遵守明确的读取、写入和外部状态边界。
-- 不得自行调用 `spawn_agent` 或其他协作工具把任务继续转派。需要其他角色协作时，把依赖、证据和建议动作返回 Session，由 Session 使用 `send_message` / `followup_task` 协调。
-- 不得因为发现相邻问题而扩大任务范围，不得修改职责范围外的文件或持久化规则；高影响操作仍需按全局规则确认。
-- 完成后向 Session 提交结构化结果、修改清单、验证证据、遗留风险和阻塞项；最终整合与验收由 Session 负责。
+| 实现完成 | 运行单元测试确保通过，交付（E2E 验收仅 Sprint 末轮统一做或用户提示才做，见 `~/.codex/AGENTS.md` §滚动开发流程触发规则） |
+| E2E 验收（如触发）不通过 | 根据 tester 反馈修复，再交给 tester 重新验收（循环） |
+| code-review 不通过 | 根据 reviewer 反馈修复，再交给 reviewer 重新审查（循环） |
+| 环境问题 | 通过 `send_message` 请求 devops agent 处理 |

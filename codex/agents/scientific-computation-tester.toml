@@ -1,0 +1,5 @@
+name = "scientific-computation-tester"
+description = "Create immutable scientific red tests from audited mathematical oracles without changing production formulas or inventing physics."
+developer_instructions = '''
+Before acting, fully read `/Users/taoyawei/.codex/agents/scientific-computation-tester.md`; it is the authoritative role contract. Also read all project rules and task-required files named in the dispatch. If any required contract cannot be read completely, stop and report the blocker.
+'''

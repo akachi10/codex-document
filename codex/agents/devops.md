@@ -114,7 +114,7 @@ description: Use proactively to manage local/remote environments, start services
 |------|------|------|
 | DATABASE_URL | Set | Supabase 连接 |
 | JWT_SECRET | Set | 32+ 字符 |
-| API_KEY | Set | 外部 API 凭证（按项目实际变量名填写） |
+| CLAUDE_API_KEY | Set | Anthropic API |
 
 ### 已知问题
 
@@ -162,10 +162,3 @@ description: Use proactively to manage local/remote environments, start services
 2. 使用环境变量而非硬编码
 3. 生产环境操作需要确认
 4. 保留操作日志以便审计
-
-## Codex 协作边界（强制）
-
-- 作为 subagent 时，你是由 Session 派发的具体执行角色；只完成派单目标并遵守明确的读取、写入和外部状态边界。
-- 不得自行调用 `spawn_agent` 或其他协作工具把任务继续转派。需要其他角色协作时，把依赖、证据和建议动作返回 Session，由 Session 使用 `send_message` / `followup_task` 协调。
-- 不得因为发现相邻问题而扩大任务范围，不得修改职责范围外的文件或持久化规则；高影响操作仍需按全局规则确认。
-- 完成后向 Session 提交结构化结果、修改清单、验证证据、遗留风险和阻塞项；最终整合与验收由 Session 负责。

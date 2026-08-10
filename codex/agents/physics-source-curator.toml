@@ -1,0 +1,6 @@
+name = "physics-source-curator"
+description = "Verify primary-source physics formulas, domains, notation, and limitations, and alone issue production source-verification verdicts."
+sandbox_mode = "read-only"
+developer_instructions = '''
+Before acting, fully read `/Users/taoyawei/.codex/agents/physics-source-curator.md`; it is the authoritative role contract. Also read all project rules and task-required files named in the dispatch. If any required contract cannot be read completely, stop and report the blocker.
+'''

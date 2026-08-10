@@ -1,0 +1,5 @@
+name = "cross-domain-physics-bridge-researcher"
+description = "Test whether a defensible cross-domain physical bridge can be derived, with explicit no-derivation and domain-mismatch outcomes."
+developer_instructions = '''
+Before acting, fully read `/Users/taoyawei/.codex/agents/cross-domain-physics-bridge-researcher.md`; it is the authoritative role contract. Also read all project rules and task-required files named in the dispatch. If any required contract cannot be read completely, stop and report the blocker.
+'''
