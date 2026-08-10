@@ -1,46 +1,29 @@
-# 仓库只接受 Codex 配置本体白名单
-codex/*
-!codex/AGENTS.md
-!codex/config.toml
-!codex/hooks.json
-!codex/agents/
-!codex/agents/**
-!codex/skills/
-!codex/skills/**
+# 默认忽略 ~/.codex 中的运行时状态，只白名单纳入静态配置与仓库说明
+/*
 
-# 凭据、会话与运行时状态
-auth.json
-history.jsonl
-sessions/
-session_index*
-*.sqlite
-*.sqlite-*
-models_cache*
-state_*
-cache/
-plugins/
-shell_snapshots/
-backups/
-skills-backup-*.tar.gz
-.tmp/
-tmp/
-runtime/
-process_manager/
-goals/
-memories/
+# 仓库元数据与说明
+!/.gitignore
+!/README.md
+!/reports/
 
-# 可再生依赖与解释器缓存
-node_modules/
-__pycache__/
-*.pyc
-*.pyo
+# Codex 静态配置本体
+!/AGENTS.md
+!/config.toml
+!/hooks.json
+!/agents/
+!/skills/
 
-# 含合成私钥头的安全扫描测试夹具不是配置本体，精确排除
-codex/skills/gstack/test/brain-sync.test.ts
-codex/skills/gstack/test/gstack-decision-bins.test.ts
-codex/skills/gstack/test/gstack-decision.test.ts
-codex/skills/gstack/test/redact-engine.test.ts
-
-# 备份与系统元数据
+# 白名单目录内的备份、缓存与可再生依赖
 *.bak*
 .DS_Store
+**/node_modules/
+**/__pycache__/
+**/*.pyc
+**/*.pyo
+agents/*.backup
+
+# 含合成私钥头的安全扫描测试夹具不是运行所需配置，精确排除
+skills/gstack/test/brain-sync.test.ts
+skills/gstack/test/gstack-decision-bins.test.ts
+skills/gstack/test/gstack-decision.test.ts
+skills/gstack/test/redact-engine.test.ts
