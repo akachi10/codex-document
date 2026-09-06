@@ -64,6 +64,9 @@ DO NOT      不许自造 UI / 不许营销话术 / 禁用色 / 禁用词
 - `upload_asset` 等工具的返回有时只在 `content[0].text` 里、没有 `structuredContent`，两处都要解析（脚本已处理）。
 - 没有取消接口：提交错了只能让它跑完，积分照扣。**方向拿不准先跟用户确认再提交。**
 - Bash 后台任务最长 10 分钟，轮询要写成可续跑（状态落文件），分段挂。
+- **completed 但 `output` 为空、进度停 90%**：多场景长片生成完后 API 不自动导出。必须在网页任务页（`chat_url`）点预览面板右上 **Share ▾ → Export video**，等「Exporting video · Rendering」跑完，`get_session_status` 才会给 `download_url`。导出前先问用户（可能触发浏览器下载）。
+- **超长打磨会内部错误**：一条 40 秒、9 附件的片在「Tinkering / Updating project」循环 72 分钟后报 "An internal error occurred… credits refunded"，积分全退；同简报重提第二次 44 分钟成功。超过 45 分钟仍在打磨可考虑停掉简化简报。
+- **成片推手机**：15.9 MB 的 1080p 用 SendUserFile 会 30 秒超时；先 ffmpeg 转 720p CRF 27（约 2 MB）再发。
 
 ## 5. 脚本
 
